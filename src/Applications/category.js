@@ -21,12 +21,18 @@ const categories = [
   };
   
   export const updateCategory = (req, res) => {
-    const index = categories.findIndex((cat) => cat.id === req.params.id);
-    if (index === -1) return res.status(404).json({ message: "Category not found" });
+   
+     const id = req.params.id;
+     const index = categories.findIndex((pro) => pro.id == id);
+   
+     if (index !== -1) {
+        categories[index] = { ...categories[index], ...req.body };
+       return res.status(200).json(categories[index]);
+     }
+   
+     res.status(200).send() ;
+   }
   
-    categories[index] = { ...categories[index], ...req.body };
-    res.status(200).json(categories[index]);
-  };
   
   export const deleteCategory = (req, res) => {
     const id = req.params.id;
