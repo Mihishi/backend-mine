@@ -2,7 +2,7 @@
 import express from 'express';
 
 const app = express();
-import { productRouter } from './Routes/product.js';
+import { productRouter } from './application/product.js';
 
 app.use(express.json()); // For parsing JSON requests
 

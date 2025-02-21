@@ -101,8 +101,25 @@ export const deleteProduct = (req, res) => {
 
 }
 
+// export const updateProduct = (req, res) => {
+//   const id = req.params.id;
+//   const index = products.findIndex((pro) => pro.id == id);
+ 
+//   if(index !== -1) {
+//     products.splice(index,1)
+// }
+
+//   res.status(200).send()
+// };
+
 export const updateProduct = (req, res) => {
+  const id = req.params.id;
+  const index = products.findIndex((pro) => pro.id == id);
 
+  if (index !== -1) {
+    products[index] = { ...products[index], ...req.body };
+    return res.status(200).json(products[index]);
+  }
 
-  res.status(200).send()
+  res.status(200).send() ;
 }
