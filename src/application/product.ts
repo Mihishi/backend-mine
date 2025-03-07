@@ -1,5 +1,7 @@
-import NotFoundError from "../domain/errors/not-found-error.js";
-import Product from "../infrastructure/schemas/Product.js";
+import NotFoundError from "../domain/errors/not-found-error";
+import Product from "../infrastructure/schemas/product";
+
+import { Request, Response, NextFunction } from "express";
 
 const products = [
   {
@@ -76,45 +78,64 @@ const products = [
   },
 ];
 
-export const getProducts = async (req, res, next) => {
+export const getProducts = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   try {
     const { categoryId } = req.query;
     if (!categoryId) {
-      const data = await Product.find()
-      return res.status(200).json(data).send();
+      const data = await Product.find();
+      res.status(200).json(data);
+      return;
     }
 
-    const data = await Product.find({ categoryId })  //categoryId walin filter krnn puluwn mehem find method ek athult dala //.populate("categoryId");if u want to know the deltails of the category
-    return res.status(200).json(data).send();
+    const data = await Product.find({ categoryId });
+    res.status(200).json(data).send();
+    return;
   } catch (error) {
     next(error);
   }
 };
 
-export const createProduct = async (req, res, next) => {
+export const createProduct = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   try {
     await Product.create(req.body);
-    return res.status(201).send();
+    res.status(201).send();
+    return;
   } catch (error) {
     next(error);
   }
 };
 
-export const getProduct = async (req, res, next) => {
+export const getProduct = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   try {
     const id = req.params.id;
     const product = await Product.findById(id).populate("categoryId");
     if (!product) {
       throw new NotFoundError("Product not found");
     }
-
-    return res.status(200).json(product).send();
+    res.status(200).json(product).send();
+    return;
   } catch (error) {
     next(error);
   }
 };
 
-export const deleteProduct = async (req, res, next) => {
+export const deleteProduct = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   try {
     const id = req.params.id;
     const product = await Product.findByIdAndDelete(id);
@@ -122,13 +143,18 @@ export const deleteProduct = async (req, res, next) => {
     if (!product) {
       throw new NotFoundError("Product not found");
     }
-    return res.status(204).send();
+    res.status(204).send();
+    return;
   } catch (error) {
     next(error);
   }
 };
 
-export const updateProduct = async (req, res, next) => {
+export const updateProduct = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   try {
     const id = req.params.id;
     const product = await Product.findByIdAndUpdate(id, req.body);
@@ -137,7 +163,8 @@ export const updateProduct = async (req, res, next) => {
       throw new NotFoundError("Product not found");
     }
 
-    return res.status(200).send(product);
+    res.status(200).send(product);
+    return;
   } catch (error) {
     next(error);
   }

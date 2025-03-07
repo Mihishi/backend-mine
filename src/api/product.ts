@@ -5,14 +5,11 @@ import {
   getProduct,
   deleteProduct,
   updateProduct,
-} from "../application/product.js";
+} from "../application/product";
 
 export const productRouter = express.Router();
 
-productRouter
-  .route("/")
-  .get(getProducts)
-  .post(createProduct);
+productRouter.route("/").get(getProducts).post(createProduct);
 productRouter
   .route("/:id")
   .get(getProduct)
