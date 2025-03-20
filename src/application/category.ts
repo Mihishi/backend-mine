@@ -1,7 +1,7 @@
 import { CategoryDTO } from "../domain/dto/category";
 import NotFoundError from "../domain/errors/not-found-error";
 import ValidationError from "../domain/errors/validation-error";
-import Category from "../infrastructure/schemas/Category";
+import Category from "../infrastructure/schemas/category";
 import { Request, Response, NextFunction } from "express";
 import { z } from "zod";
 
