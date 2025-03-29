@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import Order from "../infrastructure/schemas/order";
+import Order from "../infrastructure/schemas/Order";
 
 export const handleWebhook = async (
   req: Request,

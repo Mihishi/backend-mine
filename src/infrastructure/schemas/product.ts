@@ -2,9 +2,8 @@ import mongoose from "mongoose";
 
 const ProductSchema = new mongoose.Schema({
   categoryId: {
-    type: mongoose.Schema.Types.ObjectId, //make the relationship category and product 
-    ref: "Category",                      //product ekt category id dala aluthin post kara
-    //type: String,
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Category",
     required: true,
   },
   image: {
